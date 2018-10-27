@@ -15,22 +15,15 @@ class UrlParser
   def port
     bool = @new_url.split("//").last.split("/").first.include?(":")
     if !bool
-      if self.scheme == "https"
-        s_port = "443"
-      else
-        s_port = "80"
-      end
+      (self.scheme == "https") ? s_port = "443" : s_port = "80"
     else
-       s_port = @new_url.split("//").last.split(":").last.split("/").first
+      s_port = @new_url.split("//").last.split(":").last.split("/").first
     end
-
-    return s_port
-
   end
 
   def path
     paz = @new_url.split("//").last.split(":").last.split("/").last.split("?").first
-    paz = paz if paz != ""
+    (paz != "") ? paz = paz : paz = nil
   end
 
   def query_string
